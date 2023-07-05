@@ -1,4 +1,4 @@
-# HiveMQ Virtual Machine Cluster 
+# HiveMQ Virtual Machine Cluster / Kamiels version
 
 This template deploys a n-Node HiveMQ cluster to Azure.
 
