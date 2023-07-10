@@ -320,7 +320,7 @@
                             "idleTimeoutInMinutes": 5,
                             "protocol": "Tcp",
                             "enableTcpReset": false,
-                            "loadDistribution": "Default",
+                            "loadDistribution": "SourceIP",
                             "backendAddressPool": {
                                 "id": "[resourceId('Microsoft.Network/loadBalancers/backendAddressPools', variables('loadBalancersName'), variables('backendPoolName'))]"
                             },
