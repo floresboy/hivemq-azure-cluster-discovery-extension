@@ -118,8 +118,8 @@
                 "name": "publicIpLoop",
                 "count": "[parameters('numberOfInstances')]"
             },
-            sku: {
-                name: 'Standard'
+            "sku": {
+                "name": "Standard"
             },
             "location": "[resourceGroup().location]",
             "properties": {
