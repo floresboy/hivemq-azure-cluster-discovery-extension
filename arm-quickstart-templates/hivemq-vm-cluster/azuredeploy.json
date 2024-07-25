@@ -309,7 +309,7 @@
                 ],
                 "loadBalancingRules": [
                     {
-                        "name": "[concat(variables('loadBalancersName'), '-rule1')]",
+                        "name": "[concat(variables('loadBalancersName'), '-8080')]",
                         "properties": {
                             "frontendIPConfiguration": {
                                 "id": "[resourceId('Microsoft.Network/loadBalancers/frontendIPConfigurations', variables('loadBalancersName'), variables('frontendName'))]"
@@ -330,13 +330,34 @@
                         }
                     },
                     {
-                        "name": "[concat(variables('loadBalancersName'), '-rule2')]",
+                        "name": "[concat(variables('loadBalancersName'), '-1883')]",
                         "properties": {
                             "frontendIPConfiguration": {
                                 "id": "[resourceId('Microsoft.Network/loadBalancers/frontendIPConfigurations', variables('loadBalancersName'), variables('frontendName'))]"
                             },
                             "frontendPort": 1883,
                             "backendPort": 1883,
+                            "enableFloatingIP": false,
+                            "idleTimeoutInMinutes": 5,
+                            "protocol": "Tcp",
+                            "enableTcpReset": false,
+                            "loadDistribution": "Default",
+                            "backendAddressPool": {
+                                "id": "[resourceId('Microsoft.Network/loadBalancers/backendAddressPools', variables('loadBalancersName'), variables('backendPoolName'))]"
+                            },
+                            "probe": {
+                                "id": "[resourceId('Microsoft.Network/loadBalancers/probes', variables('loadBalancersName'), variables('healthProbeHivemq'))]"
+                            }
+                        }
+                    },
+                    {
+                        "name": "[concat(variables('loadBalancersName'), '-8883')]",
+                        "properties": {
+                            "frontendIPConfiguration": {
+                                "id": "[resourceId('Microsoft.Network/loadBalancers/frontendIPConfigurations', variables('loadBalancersName'), variables('frontendName'))]"
+                            },
+                            "frontendPort": 8883,
+                            "backendPort": 8883,
                             "enableFloatingIP": false,
                             "idleTimeoutInMinutes": 5,
                             "protocol": "Tcp",
