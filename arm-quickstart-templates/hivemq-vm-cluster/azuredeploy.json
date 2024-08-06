@@ -1,4 +1,4 @@
-{ 
+{
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
@@ -37,7 +37,7 @@
         },
         "hivemqVersion": {
             "type": "string",
-            "defaultValue": "4.30.0",
+            "defaultValue": "4.28.1",
             "metadata": {
                 "description": "The HiveMQ Version"
             }
@@ -117,9 +117,6 @@
             "copy": {
                 "name": "publicIpLoop",
                 "count": "[parameters('numberOfInstances')]"
-            },
-            "sku": {
-                "name": "Standard"
             },
             "location": "[resourceGroup().location]",
             "properties": {
@@ -312,7 +309,7 @@
                 ],
                 "loadBalancingRules": [
                     {
-                        "name": "[concat(variables('loadBalancersName'), '-8080')]",
+                        "name": "[concat(variables('loadBalancersName'), '-rule1')]",
                         "properties": {
                             "frontendIPConfiguration": {
                                 "id": "[resourceId('Microsoft.Network/loadBalancers/frontendIPConfigurations', variables('loadBalancersName'), variables('frontendName'))]"
@@ -333,34 +330,13 @@
                         }
                     },
                     {
-                        "name": "[concat(variables('loadBalancersName'), '-1883')]",
+                        "name": "[concat(variables('loadBalancersName'), '-rule2')]",
                         "properties": {
                             "frontendIPConfiguration": {
                                 "id": "[resourceId('Microsoft.Network/loadBalancers/frontendIPConfigurations', variables('loadBalancersName'), variables('frontendName'))]"
                             },
                             "frontendPort": 1883,
                             "backendPort": 1883,
-                            "enableFloatingIP": false,
-                            "idleTimeoutInMinutes": 5,
-                            "protocol": "Tcp",
-                            "enableTcpReset": false,
-                            "loadDistribution": "Default",
-                            "backendAddressPool": {
-                                "id": "[resourceId('Microsoft.Network/loadBalancers/backendAddressPools', variables('loadBalancersName'), variables('backendPoolName'))]"
-                            },
-                            "probe": {
-                                "id": "[resourceId('Microsoft.Network/loadBalancers/probes', variables('loadBalancersName'), variables('healthProbeHivemq'))]"
-                            }
-                        }
-                    },
-                    {
-                        "name": "[concat(variables('loadBalancersName'), '-8883')]",
-                        "properties": {
-                            "frontendIPConfiguration": {
-                                "id": "[resourceId('Microsoft.Network/loadBalancers/frontendIPConfigurations', variables('loadBalancersName'), variables('frontendName'))]"
-                            },
-                            "frontendPort": 8883,
-                            "backendPort": 8883,
                             "enableFloatingIP": false,
                             "idleTimeoutInMinutes": 5,
                             "protocol": "Tcp",
