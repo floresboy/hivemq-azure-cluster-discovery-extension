@@ -18,7 +18,8 @@ cd /opt
 sudo wget --content-disposition $HIVEMQ_DOWNLOAD_LINK
 sudo unzip "hivemq-${HIVEMQ_VERSION}.zip"
 sudo ln -s "/opt/hivemq-${HIVEMQ_VERSION}" /opt/hivemq
-sudo useradd -d /opt/hivemq hivemq
+sudo useradd -s /usr/sbin/nologin -d /opt/hivemq hivemq
+# sudo useradd -d /opt/hivemq hivemq
 sudo chown -R hivemq:hivemq "/opt/hivemq-${HIVEMQ_VERSION}"
 sudo chown -R hivemq:hivemq /opt/hivemq
 cd /opt/hivemq
